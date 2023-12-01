@@ -16,7 +16,12 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
-summary(cars)
+#Load the correct packages to open the data set
+library(dyplr) 
+library(readr)
+
+#read the csv file (Insert your own name and location of the data set) 
+Actors <- read_csv ("/Users/bridgetwojcik/Downloads/actors.csv")
 ```
 
 ## Including Plots
