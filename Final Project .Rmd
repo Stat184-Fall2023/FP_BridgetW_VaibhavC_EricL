@@ -22,7 +22,7 @@ Actors <- read_csv ("/Users/bridgetwojcik/Downloads/actors.csv")
 
 ## Research Question 1
 
-What is the relationship between Actor and Total Gross?
+Does who the Actor is effect what their total gross is?
 
 ```{r pressure, echo=FALSE}
 library(ggplot2)
@@ -34,4 +34,20 @@ ggplot(Actors, aes(x = `Actor`, y = `Total Gross`)) +
        y = "Total Gross")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##Research Question 2 
+
+Is there a significant difference in actor and their total gross and their number of movies? 
+
+```{r}
+
+Num_Mov <- ("Number of Movies")
+ggplot(Actors, aes(x = Actor, y = `Total Gross`, fill = as.factor(Num_Mov))) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Actor by Total Gross and Number of Movies",
+       x = "Actor",
+       y = "Total Gross",
+       fill = "Number of Movies") +
+  theme(legend.position = "top")  
+
+        
+```
