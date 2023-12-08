@@ -27,13 +27,16 @@ Actors <- read_csv ("/Users/bridgetwojcik/Downloads/actors.csv")
 Does who the Actor is effect what their total gross is?
 
 ```{r pressure, echo=FALSE}
+# Load necessary libraries
 library(ggplot2)
+library(stringr)  
 
-ggplot(Actors, aes(x = `Actor`, y = `Total Gross`)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Actor by Total Gross",
-       x = "Actor",
-       y = "Total Gross")
+ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
+  geom_point() +  # Create a scatterplot
+  labs(title = "Scatterplot of Actor by Total Gross",  # Set plot title
+       x = "Actor",  # Set x-axis label
+       y = "Total Gross") +  # Set y-axis label
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 4))  # Adjust x-axis text angle and size
 ```
 
 ##Research Question 2 
@@ -41,15 +44,33 @@ ggplot(Actors, aes(x = `Actor`, y = `Total Gross`)) +
 Is there a significant difference in actor and their total gross and their number of movies? 
 
 ```{r}
+# Convert "actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+Actors$Num_Mov <- as.numeric(Actors$`Number of Movies`)
 
-Num_Mov <- ("Number of Movies")
-ggplot(Actors, aes(x = Actor, y = `Total Gross`, fill = as.factor(Num_Mov))) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Actor by Total Gross and Number of Movies",
+
+# Create a bar plot
+ggplot(Actors, aes(x = Actor, y = Num_Mov)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Movies by Actor",
        x = "Actor",
-       y = "Total Gross",
-       fill = "Number of Movies") +
-  theme(legend.position = "top")  
+       y = "Number of Movies")
 
+# Load necessary libraries
+library(ggplot2)
+library(stringr)  
+
+
+# Load necessary libraries
+library(ggplot2)
+library(stringr)  
+
+ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
+  geom_point() +  # Create a scatterplot
+  labs(title = "Scatterplot of Actor by Total Gross",  # Set plot title
+       x = "Actor",  # Set x-axis label
+       y = "Total Gross") +  # Set y-axis label
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 4))  # Adjust x-axis text angle and size
         
 ```
