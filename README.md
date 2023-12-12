@@ -14,15 +14,15 @@ Use the following checklist to ensure that you have completed all of the tasks.
 - [x ] Find 1 or 2 other individuals who you want to work with and form a team. (NOTE: unless you have specifically been given permission to do so, you may not work alone.)
 - [x ] Create a repo using this repo as the template. Name your repo "FP_Name1_Name2_Name3" where Name# are the team member's names.
 - [x ] Make sure that each team member has access to the repo.
-- [ ] Come up with a topic and set of research questions your team will explore.
-- [ ] Make a plan for your work. (Target Completion: <mark>Wednesday, Nov. 29, 2023</mark>)
+- [x ] Come up with a topic and set of research questions your team will explore.
+- [x ] Make a plan for your work. (Target Completion: <mark>Wednesday, Nov. 29, 2023</mark>)
 - [ ] Locate appropriate data sources for your project.
-  - [ ] Your main data source may __not__ be one that we used in class nor be found in any R package.
+  - [ x] Your main data source may __not__ be one that we used in class nor be found in any R package.
   - [ ] Supplementary data sources may come from anywhere.
 - [x ] Read in your data and perform any necessary data wrangling and cleaning.
 - [ ] Conduct Exploratory Data Analysis.
 - [ ] Prepare a reproducible report
-  - [ ] Use a RMD file; output type is your choice.
+  - [x ] Use a RMD file; output type is your choice.
   - [ ] The report should be well organized with section headings
   - [ ] Code should be collapsed/hidden for HTML, and R Notebooks or in a Code Appendix at the end for a PDF.
   - [ ] All outputs should be accompanied by narrative text to explain what the reader should be seeing.
@@ -36,10 +36,10 @@ Use the following checklist to ensure that you have completed all of the tasks.
   - [ ] Have narrative text explaining every data visualization and table as well as setting a framework.
   - [ ] All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
   - [ ] __Optional:__ For those who want to challenge themselves further, feel free to include a section on using other statistical methods such as hypothesis testing, regression, ANOVA, or machine learning--see Chapter 18 of the Data Computing eBook.
-- [ ] Use GitHub to share changes and edits; there should be multiple commits to your repo and at least 2 by each team member. Ensure that your instructor has access to your repo
+- [ x] Use GitHub to share changes and edits; there should be multiple commits to your repo and at least 2 by each team member. Ensure that your instructor has access to your repo
 - [ ] You'll submit an output file of your choice, the RMD, and a link to your GitHub Repo to the appropriate submission portal in Canvas.
     - __Due Date for Neil's Class: Wednesday, Dec. 13th, 2023 by 11:59pm ET__
-- [ ] During the last week of classes (Dec. 6th and Dec. 8th), your group will need to share a short presentation 3-5 minutes of what you've investigated and learned so far.
+- [x ] During the last week of classes (Dec. 6th and Dec. 8th), your group will need to share a short presentation 3-5 minutes of what you've investigated and learned so far.
 - [ ] Each member of the team needs to complete Peer/Self Evaluations using the included Evaluation template and upload the knitted PDF to the appropriate submission portal in Canvas.
     - __Due Date: Thursday, Dec. 14th, 2023 by 11:59pm ET__
 - [ ] Update this README file to check off all elements you have completed by placing an x inside the square brackets: [x] 
