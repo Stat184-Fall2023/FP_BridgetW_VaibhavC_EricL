@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Actors Data Set
 **Introduce your data using complete sentences.**  What kind of data set are you looking at? Why did you choose this data set?
 
+We chose to look at a data set of a sample of famous actor and look at their total gross, number of movies, average per movie, #1 movie, and the gross for that movie. We thought this would be an interesting topic because these famous actors are relevant to our age and generation. We liked this specific data set because it was already tidy, along with descending order of total gross which was very helpful. We want to further explore this data set whilst answering some research question that we formed. 
+
 #load the data set
 ```{r actors}
 #Load the correct packages to open the data set
@@ -51,10 +53,41 @@ ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
 
 
 ```
+#Visual Table 
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+
+
+# Convert "Actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+
+# Calculate overall mean, median, and mode for Total Gross
+overall_mean <- mean(Actors$`Total Gross`)
+overall_median <- median(Actors$`Total Gross`)
+overall_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Create a summary table
+summary_table <- data.frame(
+  Measure = c("Mean", "Median", "Mode"),
+  Value = c(overall_mean, overall_median, overall_mode(Actors$`Total Gross`))
+)
+
+print(summary_table)
+
+
+```
+
 
 ##Research Question 2 
 
-Is there a significant difference in actor and their total gross and their number of movies? 
+Is there a notable difference between an actor's overall earnings (total gross) and the quantity of movies they have starred in? 
 
 ```{r}
 # Convert "actor" to character
@@ -87,3 +120,65 @@ ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
   theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 4))  # Adjust x-axis text angle and size
         
 ```
+Shown here, is a new visualization which is a bar graph to compare the actor with their number of movies in the data set. We thought it was important to compare both graphs to look at how each actors number of movies compares to what their total gross is. After looking at these two graphs we can see that the number of movies do not necessarily align with what their total gross is. Robert DeNiro has the highest number of movies in this sample, but a lower total gross. Similarly, Anthony Daniels has the least amount of movies in this sample, but has the fifteenth highest total gross. 
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+
+
+# Convert "Actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+
+# Set larger plot size
+options(repr.plot.width = 8, repr.plot.height = 6)
+
+# Create a scatter plot with Actor, Total Gross, and Number of Movies
+ggplot(Actors, aes(x = `Number of Movies`, y = `Total Gross`, color = Actor)) +
+  geom_point(size = 2) +
+  scale_color_viridis_d() +
+  labs(title = "Actor Statistics",
+       x = "Number of Movies",
+       y = "Total Gross",
+       color = "Actor") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 3),
+        legend.text = element_text(size = 3),
+        legend.key.size = unit(0.5, "cm")) +
+  xlim(c(0, max(Actors$`Number of Movies`))) +
+  ylim(c(0, max(Actors$`Total Gross`)))
+```
+
+Here, is a graph that shows all of the variables we wanted to look at. It has the number of movies on the x-axis vs total gross on the y-axis and the points are color-coded to match with each individual actor. I really like this graph because it is more obvious to predict some kind of trend here. From what I see, this scatter-plot looks to have a positive linear correlation, so it simpler terms, as the number of movies increase, the total gross is increasing. This is a surprising trend to see given our predictions from before and how they don't correlate. 
+
+```{r}
+library(gt)
+
+
+# Convert "Actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+
+# Create a gt table with "Total Gross" and "Number of Movies" columns
+actors_table <- gt(Actors[, c("Actor", "Number of Movies", "Total Gross")]) %>%
+  fmt_number(
+    columns = vars(`Number of Movies`, `Total Gross`),
+    decimals = 0
+  ) %>%
+  fmt_currency(
+    columns = vars(`Total Gross`),
+    currency = "USD",
+    decimals = 0
+  ) %>%
+  tab_header(
+    title = "Actor",
+    subtitle = "Table showing statistics for each actor."
+  )
+
+# Print the table
+actors_table
+
+
+
+
+```
+
