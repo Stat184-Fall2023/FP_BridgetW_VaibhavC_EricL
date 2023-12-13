@@ -181,4 +181,216 @@ actors_table
 
 
 ```
+This table is essentially a simpler way to read the data set because it now just includes the numbers we want to see, rather than all the other variables we are not looking at. You can also see a little easier how these numbers dont necessarily align. The number of movies does not seem to effect the total gross.
+
+## Research Question 3
+```{r, echo=FALSE}
+# Load necessary libraries
+library(readxl)
+library(knitr)
+
+# Load the dataset from Excel
+Athletes <- read_excel("/Users/bridgetwojcik/Downloads/Athletes.xlsx")  # Adjust the path accordingly
+
+```
+In this plot here you can see that almost all of these athletes have around the same pay besides for a few outliers. Comparing this to the actors data, there appears to be less variety in the amount of pay/total gross. 
+
+```{r, echo=FALSE}
+# Create a dot plot 
+dotchart(Athletes$Pay, labels = Athletes$Athlete,
+         main = "Athlete Pay",
+         xlab = "Pay",
+         ylab = "Athlete",
+         color = rainbow(length(Athletes$Athlete)),
+         cex = 0.4)  # Adjust the font size 
+
+# Add grid lines
+grid()
+
+
+```
+Shown here is a dot chart, this is just another visualization to look at for the same variables. This time on this graph, the athletes are shown on the y-axis rather than the x. This is just another way to look at it differently. From looking here, however, it seems to be less evident that they all have a similar pay besides some outliers. Here it looks extremely skewed, which is something to think about because in our actors data, the total gross also seemed to be sort of all over the place. 
+
+```{r, echo= FALSE}
+# Create a data frame 
+athlete_data <- data.frame(Athlete = Athletes$Athlete, Pay = Athletes$Pay)
+
+# Print the data frame
+print(athlete_data)
+
+```
+Here, is just a simple table to look at each athletes pay more clearly and really get a look at all of the numbers. Once you look at the numbers this way, it more evident to see that the pay decreases pretty consistently and the biggest jump is from Michael Jordan to Tiger Woods. 
+
+##Conclusion
+After making visualizations for each research questions along with tables, we got to explore more into actors total gross along with athlethes pay and were able to compare the two. The analysis suggests that predicting an actor's total gross is a complex task, and the number of movies alone does not provide a straightforward explanation. The comparison with highest paid athletes highlights the variability in earnings across different industries. Overall, the entertainment industry exhibits a diverse range of earnings, and multiple factors may contribute to an individual's success.
+##Code Apendix
+```{r}
+library(dplyr)
+library(readr)
+
+
+Actors <- read_csv("/Users/bridgetwojcik/Downloads/actors.csv")
+
+# Load necessary libraries
+library(ggplot2)
+library(stringr)  
+
+ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
+  geom_point() +  # Create a scatterplot
+  labs(title = "Scatterplot of Actor by Total Gross",  # Set plot title
+       x = "Actor",  # Set x-axis label
+       y = "Total Gross") +  # Set y-axis label
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 4))  # Adjust x-axis text angle and size
+
+# Create a bar plot
+ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
+  geom_bar(stat = "identity", fill = "red", color = "black") +
+  labs(title = "Bar Plot of Actor by Total Gross",
+       x = "Actor",
+       y = "Total Gross") +
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 5))
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+
+
+# Convert "Actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+
+# Calculate overall mean, median, and mode for Total Gross
+overall_mean <- mean(Actors$`Total Gross`)
+overall_median <- median(Actors$`Total Gross`)
+overall_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Create a summary table
+summary_table <- data.frame(
+  Measure = c("Mean", "Median", "Mode"),
+  Value = c(overall_mean, overall_median, overall_mode(Actors$`Total Gross`))
+)
+
+print(summary_table)
+
+# Convert "actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+Actors$Num_Mov <- as.numeric(Actors$`Number of Movies`)
+
+
+# Create a bar plot
+ggplot(Actors, aes(x = Actor, y = Num_Mov)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Movies by Actor",
+       x = "Actor",
+       y = "Number of Movies")
+
+# Load necessary libraries
+library(ggplot2)
+library(stringr)  
+
+
+# Load necessary libraries
+library(ggplot2)
+library(stringr)  
+
+ggplot(Actors, aes(x = str_wrap(Actor, width = 10), y = `Total Gross`)) +
+  geom_point() +  # Create a scatterplot
+  labs(title = "Scatterplot of Actor by Total Gross",  # Set plot title
+       x = "Actor",  # Set x-axis label
+       y = "Total Gross") +  # Set y-axis label
+  theme(axis.text.x = element_text(angle = 75, hjust = 1, size = 4))  # Adjust x-axis text angle and size
+
+# Load necessary libraries
+library(ggplot2)
+
+
+# Convert "Actor" to character
+Actors$Actor <- as.character(Actors$Actor)
+
+# Set larger plot size
+options(repr.plot.width = 8, repr.plot.height = 6)
+
+# Create a scatter plot with Actor, Total Gross, and Number of Movies
+ggplot(Actors, aes(x = `Number of Movies`, y = `Total Gross`, color = Actor)) +
+  geom_point(size = 2) +
+  scale_color_viridis_d() +
+  labs(title = "Actor Statistics",
+       x = "Number of Movies",
+       y = "Total Gross",
+       color = "Actor") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 3),
+        legend.text = element_text(size = 3),
+        legend.key.size = unit(0.5, "cm")) +
+  xlim(c(0, max(Actors$`Number of Movies`))) +
+  ylim(c(0, max(Actors$`Total Gross`)))
+
+# Load the gt package 
+library(gt)
+
+# Convert "Actor" column to character type
+Actors$Actor <- as.character(Actors$Actor)
+
+# Create a simple gt table with selected columns
+actors_table <- gt(Actors[, c("Actor", "Number of Movies", "Total Gross")]) %>%
+  
+  # Make the selected numeric columns to have no decimals
+  fmt_number(
+    columns = vars(`Number of Movies`, `Total Gross`),
+    decimals = 0
+  ) %>%
+  
+  # Make the "Total Gross" column as currency in USD with no decimals
+  fmt_currency(
+    columns = vars(`Total Gross`),
+    currency = "USD",
+    decimals = 0
+  )
+
+# Print the final table
+actors_table
+
+# Create a horizontal bar plot 
+barplot(height = Athletes$Pay, names.arg = Athletes$Athlete,
+        main = "Athlete Pay",
+        xlab = "Athlete",
+        ylab = "Pay",
+        col = rainbow(length(Athletes$Athlete)),
+        cex.names = 0.6,  # Adjust the font size 
+        las = 2)  # Rotate the labels
+
+# Add grid lines
+grid()
+
+# Create a dot plot 
+dotchart(Athletes$Pay, labels = Athletes$Athlete,
+         main = "Athlete Pay",
+         xlab = "Pay",
+         ylab = "Athlete",
+         color = rainbow(length(Athletes$Athlete)),
+         cex = 0.4)  # Adjust the font size 
+
+# Add grid lines
+grid()
+
+# Create a data frame 
+athlete_data <- data.frame(Athlete = Athletes$Athlete, Pay = Athletes$Pay)
+
+# Print the data frame
+print(athlete_data)
+
+
+```
+This is the link to our actors data set in our github. We go the data set from a previous class and found the sourse at github.
+https://github.com/Stat184-Fall2023/FP_BridgetW_VaibhavC_EricL/blob/main/actors.csv 
+
+This is the link to the athletes data set. I then tidied the data into excel.
+https://www.statista.com/statistics/1370671/highest-paid-athletes-ever/
+
+
+
 
