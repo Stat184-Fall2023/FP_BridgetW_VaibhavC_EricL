@@ -151,8 +151,7 @@ ggplot(Actors, aes(x = `Number of Movies`, y = `Total Gross`, color = Actor)) +
 Here, is a graph that shows all of the variables we wanted to look at. It has the number of movies on the x-axis vs total gross on the y-axis and the points are color-coded to match with each individual actor. I really like this graph because it is more obvious to predict some kind of trend here. From what I see, this scatter-plot looks to have a positive linear correlation, so it simpler terms, as the number of movies increase, the total gross is increasing. This is a surprising trend to see given our predictions from before and how they don't correlate. 
 
 ```{r}
-library(gtable)
-
+library(gt)
 
 # Convert "Actor" to character
 Actors$Actor <- as.character(Actors$Actor)
@@ -175,8 +174,6 @@ actors_table <- gt(Actors[, c("Actor", "Number of Movies", "Total Gross")]) %>%
 
 # Print the table
 actors_table
-
-
 
 
 ```
